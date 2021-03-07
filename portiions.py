@@ -18,10 +18,10 @@ members = {'Michael McG': {'Name': 'Michael McG', 'SharesWanted': 600, 'Getting_
  'Jim': {'Name': 'Jim', 'SharesWanted': 60, 'Getting_shares': 0}}
 
 # member literals (hard-coded values) in more than one place can introduce errors.
-# a better way might be to populate memberlist from members
-member_list = [person for person in members]  # member_list
+# a better way might be to populate member_list from members
+member_list = [person for person in members]  # for every key value in members, add the key value to member_list
 
-members = {}
+# members = {}
 
 for name in member_list:
     ml_wanted = 0  # define var inside of scope
@@ -38,10 +38,10 @@ for name in member_list:
             break
         elif choice.lower().strip() == "share":
             while True:
-                shares = input("How many 60ml shares would you like?")
+                shares = input("How many 60ml shares would you like? ")
                 try:  # a more 'pythonic' name might be ml_wanted:
                     ml_wanted = min(abs(int(shares)) * 60, 600)  # why abs()? Input validation should be done above..
-                    choice = shares + choice
+                    choice = shares + " " + choice + ("s" if int(shares) > 1 else "")
                     break
                 except Exception as err:  # using a blanket 'except' is bad form.....
                     print(err)
@@ -50,7 +50,7 @@ for name in member_list:
             break
     members[name] = ({"Name": name,
                       "Choice": choice,
-                      "SharesWanted": ml_wanted,  # mlWanted is actually out-of-scope here, but python is forgiving....
+                      "SharesWanted": ml_wanted,
                       "Getting_shares": 0})
 
 sharesavailable = 600
@@ -66,10 +66,10 @@ while sharesavailable > .001:
     try:
         #    print(sharesavailable)
 
-        for member in members:
+        for member in members.values():
             if member.get("SharesWanted") >= units:
-                member.update({"SharesWanted": member.get("SharesWanted") - units})
-                member.update({"Getting_shares": member.get("Getting_shares") + units})
+                member["SharesWanted"] -= units
+                member["Getting_shares"] += units
                 sharesavailable -= units
         #       pprint.pprint (members)
         #       print (sharesavailable)
