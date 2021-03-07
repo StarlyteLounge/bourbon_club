@@ -24,22 +24,23 @@ member_list = [person for person in members]  # member_list
 members = {}
 
 for name in member_list:
+    ml_wanted = 0  # define var inside of scope
     while True:
         choice = input(f"Does {name} want a cut, x shares, or are they out (cut,share,out)? ")
         if choice.lower().strip() not in ["cut", "share", "out"]:
             print('please enter "cut", "share", or "out"')
             continue
         elif choice.lower().strip() == "out":
-            mlWanted = 0
+            ml_wanted = 0
             break
         elif choice.lower().strip() == "cut":
-            mlWanted = 600
+            ml_wanted = 600
             break
         elif choice.lower().strip() == "share":
             while True:
                 shares = input("How many 60ml shares would you like?")
                 try:  # a more 'pythonic' name might be ml_wanted:
-                    mlWanted = min(abs(int(shares)) * 60, 600)  # why abs()? Input validation should be done above..
+                    ml_wanted = min(abs(int(shares)) * 60, 600)  # why abs()? Input validation should be done above..
                     choice = shares + choice
                     break
                 except Exception as err:  # using a blanket 'except' is bad form.....
@@ -49,7 +50,7 @@ for name in member_list:
             break
     members[name] = ({"Name": name,
                       "Choice": choice,
-                      "SharesWanted": mlWanted,  # mlWanted is actually out-of-scope here, but python is forgiving....
+                      "SharesWanted": ml_wanted,  # mlWanted is actually out-of-scope here, but python is forgiving....
                       "Getting_shares": 0})
 
 sharesavailable = 600
