@@ -19,6 +19,8 @@ members = {'Michael McG': {'Name': 'Michael McG',  # where's Ruth?
  'Jim': {'Name': 'Jim', 'SharesWanted': 60, 'Getting_shares': 0}}
 '''
 
+# member literals (hard-coded values) in more than one place can introduce errors.
+# a better way might be to populate memberlist from members
 memberlist = ["Michael McG", "Jon McC", "Mike B", "Jay", "Katie", "Barbara", "John N", "Jim"]  # member_list
 
 members = {}
@@ -42,8 +44,8 @@ for name in memberlist:
                     mlWanted = min(abs(int(shares)) * 60, 600)  # why abs()? Input validation should be done above..
                     choice = shares + choice
                     break
-                except:     # if the intent was to keep 'shares' input as integers, this fails
-                            #   also, using a blanket 'except' is bad form.....
+                except Exception as err:  # using a blanket 'except' is bad form.....
+                    print(err)
                     print("A whole number, please")
                     continue
             break
@@ -65,7 +67,7 @@ while sharesavailable > .001:
     try:
         #    print(sharesavailable)
 
-        for member in members.values():
+        for member in members:
             if member.get("SharesWanted") >= units:
                 member.update({"SharesWanted": member.get("SharesWanted") - units})
                 member.update({"Getting_shares": member.get("Getting_shares") + units})
@@ -74,7 +76,7 @@ while sharesavailable > .001:
         #       print (sharesavailable)
         if sharesavailable <= 0.01:
             raise ValueError  # "You gave away more shares than you have"
-    except ValueError:  # very good, I would have use a custom error here
+    except ValueError:  # very good, I would have used a custom error here
         print(f'{sharesavailable} ml left over')
 
 for member in members.values():
