@@ -6,10 +6,9 @@ Created on Sat Mar  6 17:20:29 2021
 """
 # pythonic names: name, shares_wanted getting_shares  (snake case).
 # as an aside, you have used camel case (SharesWanted) AND pascal case (Getting_shares)!
-'''
-members = {'Michael McG': {'Name': 'Michael McG',  # where's Ruth?
-  'SharesWanted': 600,
-  'Getting_shares': 0},
+
+# create members dict  # where's Ruth?
+members = {'Michael McG': {'Name': 'Michael McG', 'SharesWanted': 600, 'Getting_shares': 0},
  'Jon McC': {'Name': 'Jon McC', 'SharesWanted': 600, 'Getting_shares': 0},
  'Mike B': {'Name': 'Mike B', 'SharesWanted': 600, 'Getting_shares': 0},
  'Jay': {'Name': 'Jay', 'SharesWanted': 600, 'Getting_shares': 0},
@@ -17,11 +16,10 @@ members = {'Michael McG': {'Name': 'Michael McG',  # where's Ruth?
  'Barbara': {'Name': 'Barbara', 'SharesWanted': 600, 'Getting_shares': 0},
  'John N': {'Name': 'John N', 'SharesWanted': 120, 'Getting_shares': 0},
  'Jim': {'Name': 'Jim', 'SharesWanted': 60, 'Getting_shares': 0}}
-'''
 
 # member literals (hard-coded values) in more than one place can introduce errors.
 # a better way might be to populate memberlist from members
-memberlist = ["Michael McG", "Jon McC", "Mike B", "Jay", "Katie", "Barbara", "John N", "Jim"]  # member_list
+memberlist = [name for name in members]  # member_list
 
 members = {}
 
