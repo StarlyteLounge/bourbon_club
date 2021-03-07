@@ -19,11 +19,11 @@ members = {'Michael McG': {'Name': 'Michael McG', 'SharesWanted': 600, 'Getting_
 
 # member literals (hard-coded values) in more than one place can introduce errors.
 # a better way might be to populate memberlist from members
-memberlist = [name for name in members]  # member_list
+member_list = [person for person in members]  # member_list
 
 members = {}
 
-for name in memberlist:
+for name in member_list:
     while True:
         choice = input(f"Does {name} want a cut, x shares, or are they out (cut,share,out)? ")
         if choice.lower().strip() not in ["cut", "share", "out"]:
