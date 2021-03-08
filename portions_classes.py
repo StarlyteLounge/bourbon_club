@@ -52,8 +52,7 @@ class Bottle:
                 break
             break
         return
-
-
+#OIC
 def new_bottle():
     while True:
         name = input("What's the name of the bottle? ")
