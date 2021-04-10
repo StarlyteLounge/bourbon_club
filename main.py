@@ -52,5 +52,8 @@ for share in shares:
     if bottle.amount_unclaimed < bottle.share_size:
         break
 
-if bottle.amount_unclaimed:
+# We've either satisfied all of the share requests, or there is no more booze left
+# no booze, then done w/portions
+if bottle.amount_unclaimed < bottle.share_size:
+    print('do stuff here')
 
