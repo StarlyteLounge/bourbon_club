@@ -27,6 +27,7 @@ class Member:
         """1/10th of the amt of booze to be shared, usually 60ml per share"""
         self.portion = portion
         """the amount of booze this Member actually gets"""
+        self.owes = 0
 
 
 class Bottle:
@@ -39,11 +40,12 @@ class Bottle:
         self.members = []
         self.winners_cut = min(volume/5, 150)
         self.amount_unclaimed = volume - self.winners_cut
+        self.share_size = self.amount_unclaimed/10
 
     def i_am_in(self, name):
         """add a Member if 'name' wants some booze"""
         while True:
-            choice = input(f"Does {name} want to share, a cut, or are they out? ").lower().strip()
+            choice = input(f"\nDoes {name} want to share, a cut, or are they out? ").lower().strip()
             if choice == '':  # this Member does not want any of this booze
                 return
             if choice not in ["c", "s", "o", "cut", "share", "out"]:
@@ -54,7 +56,7 @@ class Bottle:
                 break
             elif choice.startswith("s"):
                 while True:
-                    shares = int(input(f"How many {self.amount_unclaimed/10}ml shares does {name} want? "))
+                    shares = int(input(f"How many {self.share_size}ml shares does {name} want? "))
                     if shares < 1 or shares > 9:
                         print(f"{shares} is not a valid number. Choose from 1 to 9.")
                         continue
@@ -92,21 +94,3 @@ def new_bottle():
                 continue
 
         return Bottle(name, winner, price, int(volume))
-
-
-bottle = new_bottle()
-print(f"Name: {bottle.name}")
-print(f"Winner: {bottle.winner}")
-print(f"Price: ${bottle.price}")
-if bottle.volume >= 1000:
-    print(f"{bottle.volume/1000}l")
-else:
-    print(f"Size: {bottle.volume}ml")
-
-print("\nJust hit 'Enter' if the member is 'out'")
-for person in MEMBERS:
-    bottle.i_am_in(person)
-
-print("These are the participating members, is it correct? ctl-c and restart if not...")
-for member in bottle.members:
-    print(member.name + '\n')
