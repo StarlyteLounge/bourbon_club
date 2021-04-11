@@ -35,12 +35,12 @@ class Bottle:
     def __init__(self, name, winner, price, volume=750):
         self.name = name
         self.winner = winner
-        self.price = price
-        self.volume = volume
+        self.price = float(price)
+        self.volume = int(volume)
         self.members = []
-        self.winners_cut = min(volume/5, 150)
+        self.winners_cut = min(int(volume)/5, 150)
         self.amount_unclaimed = volume - self.winners_cut
-        self.share_size = self.amount_unclaimed/10
+        self.share_size = self.amount_unclaimed/10.0
 
     def i_am_in(self, name):
         """add a Member if 'name' wants some booze"""
@@ -71,7 +71,7 @@ def new_bottle():
     """the bottle of booze to be divided up"""
     while True:
         name = input("What's the name of the bottle? ")
-        price = input("What's the total price? ")
+        price = float(input("What's the total price? "))
 
         volume = ''
         volume_input = input("If it's a 750ml bottle, hit enter, otherwise input the bottle volume: ")
