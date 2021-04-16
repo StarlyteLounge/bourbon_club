@@ -2,6 +2,7 @@
 
 #  Bottles have members
 #  Members have booze
+#  Booze moves from Bottles to Members
 
 MEMBERS = \
     ['Michael McG',
@@ -74,23 +75,24 @@ def new_bottle():
         price = float(input("What's the total price? "))
 
         volume = ''
-        volume_input = input("If it's a 750ml bottle, hit enter, otherwise input the bottle volume: ")
+        volume_input = input("If it's a 750ml bottle, hit enter, otherwise input the bottle volume, use ml or l: ")
         for c in volume_input:  # strip any units at the end of the number
-            if c.isdigit() or c == ".":
+            if c.isdigit() or c == ".":  # flawed algorithm. '1.2ml 4' gets a volume of 1.24
                 volume += c
-        volume = float(volume or "750")
-        if volume < 10:
+        volume = float(volume or "750")  # has to be a float to allow liter inputs such as 1.75l
+        if volume < 10:  # purely arbitrary number, assumes bottles are more than 10ml and less than 10l
             volume = volume * 1000  # convert liters into milliliters
 
-        print("Current Member list:\n" + '\n'.join(MEMBERS))
+        # store the winner of the bottle's name
+        print("Current Member list:\n" + '\n'.join(MEMBERS))  # remind me how to spell that person's name, again?
         while True:
             winner = input("Who is the winner? ")
             if winner in MEMBERS:
-                break
+                break  # exit loop
             else:
                 print(f"{winner} is not in the list. Try again.")
                 print("Spelling and capitalization counts!")
-                print("ctl-c to quit")
-                continue
+                print("ctl-c to exit entirely")
+                continue  # continue loop
 
         return Bottle(name, winner, price, int(volume))
